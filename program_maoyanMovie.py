@@ -1,5 +1,7 @@
 #未完成，需要后期加入滑动验证
 import json
+import time
+
 import requests
 import re
 
@@ -18,7 +20,8 @@ def get_one_page(url):
 
 def parse_one_page(html):
     pattern = re.compile(
-        '<dd>.*?board-index.*?>(.*?)</i>.*?board-img.*?src="(.*?)".*?a.*?>(.*?)</a>.*?star.*?>(.*?)</p>.*?releasetime.*?>(.*?)</p>.*?fraction.*?>(.*?)</i>.*?</dd>', re.S
+        '<dd>.*?board-index.*?>(.*?)</i>.*?board-img.*?src="(.*?)".*?a.*?>(.*?)</a>.*?star.*?>(.*?)</p>'
+        '.*?releasetime.*?>(.*?)</p>.*?fraction.*?>(.*?)</i>.*?</dd>', re.S
     )
     items = re.findall(pattern, html)
     print(items)
@@ -36,6 +39,9 @@ def main(offset):
         print(item)
         write_to_file(item)
 
+
 if __name__ == '__main__':
     for i in range(10):
         main(i*10)
+        time.sleep(1)
+
